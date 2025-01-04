@@ -1,0 +1,6 @@
+influxdb-client
+
+minimalmodbus
+
+paho-mqtt<2.0.0
+ 
