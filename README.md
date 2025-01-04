@@ -7,7 +7,7 @@ Control of a Picher LG350 unit via Python and Modbus
 * Running the ventilation system with modified parameters could not just void the device warranty. But in case you are not an expert, you might also risk all kind of humidity problems in your house, creating mildew etc.
 !!!!!! Warning !!!!!!!! 
 
-This is basically a contination of https://github.com/ThomasRgbg/esp8266-pichler, where now the scripts here run directly on a Raspberry PI and a RS485 converter connected to /dev/ttyUSB*
+This is basically a contination of https://github.com/ThomasRgbg/esp8266-pichler, where now the scripts here run directly on a Raspberry PI and a RS485 converter connected to /dev/ttyUSB*. For more information on the wiring, please check your Pichler documentation. 
 
 Controlling the Pichler LG350 is realtively straight forward. But I'm not sure how much they like if I disclose the whole register list. Therefore please ask via your own support contacts for the register list. I got a Excel list, but some of the parameters need some addtional calculation (offset/scaling), this is background of the param1/2 in the list. 
 
