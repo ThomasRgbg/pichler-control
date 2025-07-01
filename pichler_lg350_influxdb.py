@@ -15,6 +15,8 @@ def mqtt_on_connect(client, userdata, flags, rc):
     print("pichler_lg350_influxdb.py: MQTT Connection returned result: " + str(rc))
     client.subscribe(client.lueftung_topic + "/luftstufe_set", 1)
     client.subscribe(client.lueftung_topic + "/l1_qmh_set", 1)
+    client.subscribe(client.lueftung_topic + "/l2_qmh_set", 1)
+    client.subscribe(client.lueftung_topic + "/l3_qmh_set", 1)
 
 # The callback for when a PUBLISH message is received from the server.
 def mqtt_on_message(client, userdata, msg):
