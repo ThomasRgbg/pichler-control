@@ -76,6 +76,35 @@ class PichlerLG350(minimalmodbus.Instrument):
         else:
             print("pichler_lg350.py/l1_qmh.setter(): l1_qmh out of range")
 
+    @property
+    def l2_qmh(self):
+        value = self.read_holding_register(10)
+        return value
+
+    @l2_qmh.setter
+    def l2_qmh(self, value):
+        value = int(value)
+        if value >= 190 and value < 300:
+            self.write_register(10, value)
+            print("pichler_lg350.py/l2_qmh.setter(): new l2 qmh = {0}".format(self.l2_qmh))
+        else:
+            print("pichler_lg350.py/l2_qmh.setter(): l2_qmh out of range")
+
+    @property
+    def l3_qmh(self):
+        value = self.read_holding_register(11)
+        return value
+
+    @l3_qmh.setter
+    def l3_qmh(self, value):
+        value = int(value)
+        if value >= 300 and value < 350:
+            self.write_register(11, value)
+            print("pichler_lg350.py/l3_qmh.setter(): new l3 qmh = {0}".format(self.l3_qmh))
+        else:
+            print("pichler_lg350.py/l3_qmh.setter(): l3_qmh out of range")
+
+
     def get_errors(self):
         for i in range(60,80):
             print("{0}:Z{1} = {2}".format(i, (i-59), self.read_input_register(i)))

@@ -27,6 +27,14 @@ def mqtt_on_message(client, userdata, msg):
         if int(msg.payload) >= 50 and int(msg.payload) < 190:
             print("pichler_lg350_influxdb.py: set l1_qmh because of MQTT msg")
             client.lueftung.l1_qmh = int(msg.payload)
+    elif msg.topic == client.lueftung_topic + "/l2_qmh_set":
+        if int(msg.payload) >= 190 and int(msg.payload) < 300:
+            print("pichler_lg350_influxdb.py: set l2_qmh because of MQTT msg")
+            client.lueftung.l2_qmh = int(msg.payload)
+    elif msg.topic == client.lueftung_topic + "/l3_qmh_set":
+        if int(msg.payload) >= 300 and int(msg.payload) < 350:
+            print("pichler_lg350_influxdb.py: set l3_qmh because of MQTT msg")
+            client.lueftung.l3_qmh = int(msg.payload)
 
 if __name__ == "__main__":
     config = RawConfigParser(delimiters='=')
