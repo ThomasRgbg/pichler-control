@@ -17,6 +17,7 @@ def mqtt_on_connect(client, userdata, flags, rc):
     client.subscribe(client.lueftung_topic + "/l1_qmh_set", 1)
     client.subscribe(client.lueftung_topic + "/l2_qmh_set", 1)
     client.subscribe(client.lueftung_topic + "/l3_qmh_set", 1)
+    client.subscribe(client.lueftung_topic + "/summer_mode", 1)
 
 # The callback for when a PUBLISH message is received from the server.
 def mqtt_on_message(client, userdata, msg):
@@ -37,6 +38,12 @@ def mqtt_on_message(client, userdata, msg):
         if int(msg.payload) >= 300 and int(msg.payload) < 350:
             print("pichler_lg350_influxdb.py: set l3_qmh because of MQTT msg")
             client.lueftung.l3_qmh = int(msg.payload)
+    elif msg.topic == client.lueftung_topic + "/summer_mode":
+        if int(msg.payload) >= 1:
+            print("pichler_lg350_influxdb.py: set summer_mode because of MQTT msg")
+            client.lueftung.summer_mode = True
+        elif int(msg.payload) = 0:
+            client.lueftung.summer_mode = False
 
 if __name__ == "__main__":
     config = RawConfigParser(delimiters='=')
@@ -63,6 +70,8 @@ if __name__ == "__main__":
 
     while True:
         results = lg350.get_all_input_registers()
+        
+        lg350.check_summer_mode()
 
         for name, value in results.items():
             influxdb.write_sensordata("lueftung", name, value)

@@ -12,6 +12,7 @@ class PichlerLG350(minimalmodbus.Instrument):
         minimalmodbus.Instrument.__init__(self, port=portname, slaveaddress=slaveaddress, debug=debug)  
         self.serial.parity =  minimalmodbus.serial.PARITY_EVEN
         print("pichler_lg350.py/__init__(): Luftstufe = {0}".format(self.luftstufe))
+        self.summer_mode = False
 
     def read_input_register(self, reg):
         return self.read_register(reg, 0, functioncode=4)
@@ -104,10 +105,17 @@ class PichlerLG350(minimalmodbus.Instrument):
         else:
             print("pichler_lg350.py/l3_qmh.setter(): l3_qmh out of range")
 
-
     def get_errors(self):
         for i in range(60,80):
             print("{0}:Z{1} = {2}".format(i, (i-59), self.read_input_register(i)))
+
+
+    def check_summer_mode(self):
+        if self.summer_mode:
+            if self.read_input_register(20):
+                self.luftstufe = 1
+            else:
+                self.luftstufe = 2
 
 if __name__ == "__main__":
 
