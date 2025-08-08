@@ -113,9 +113,9 @@ class PichlerLG350(minimalmodbus.Instrument):
     def check_summer_mode(self):
         if self.summer_mode:
             if self.read_input_register(20):
-                self.luftstufe = 1
-            else:
                 self.luftstufe = 2
+            else:
+                self.luftstufe = 1
 
 if __name__ == "__main__":
 
