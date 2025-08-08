@@ -42,7 +42,7 @@ def mqtt_on_message(client, userdata, msg):
         if int(msg.payload) >= 1:
             print("pichler_lg350_influxdb.py: set summer_mode because of MQTT msg")
             client.lueftung.summer_mode = True
-        elif int(msg.payload) = 0:
+        elif int(msg.payload) == 0:
             client.lueftung.summer_mode = False
 
 if __name__ == "__main__":
